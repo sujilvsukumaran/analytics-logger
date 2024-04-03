@@ -1,0 +1,21 @@
+{
+  "__version__": "1.0.0",
+  "builder": {},
+  "gizmos-infos": {
+    "is2D": false,
+    "is3DIcon": false,
+    "iconSize": 2,
+    "gridVisible": true,
+    "gridColor": [
+      166,
+      166,
+      166,
+      255
+    ],
+    "isIconGizmo3D": false,
+    "iconGizmoSize": 2
+  },
+  "": {
+    "sculpt_brush_rotate": 0
+  }
+}
