@@ -1,13 +1,13 @@
-import { IEvent } from "../interfaces/IEvent";
-import { Endpoint } from "./Endpoint";
-import { EventCache } from "./EventCache";
+import {IEvent} from "../interfaces/IEvent";
+import {Endpoint} from "./Endpoint";
+import {EventCache} from "./EventCache";
 
 export class AnalyticsLogger {
     private static instance: AnalyticsLogger;
     private endpoints: Endpoint[];
     private eventCache: EventCache;
-    private cacheInterval: number;
-    private maxCacheSize: number;
+    private readonly cacheInterval: number;
+    private readonly maxCacheSize: number;
     private intervalId: any;
 
     private constructor(endpoints: Endpoint[], eventCache: EventCache, cacheInterval: number, maxCacheSize: number) {
@@ -30,6 +30,15 @@ export class AnalyticsLogger {
         return AnalyticsLogger.instance;
     }
 
+    public static resetInstance(): void {
+        if (AnalyticsLogger.instance) {
+            AnalyticsLogger.instance.stop();
+            AnalyticsLogger.instance.eventCache.clear();
+            AnalyticsLogger.instance.endpoints = [];
+        }
+        AnalyticsLogger.instance = null;
+    }
+
     public start(): void {
         this.intervalId = setInterval(() => this.sendCachedEvents(), this.cacheInterval);
     }
@@ -38,6 +47,12 @@ export class AnalyticsLogger {
         if (this.intervalId) {
             clearInterval(this.intervalId);
         }
+    }
+
+    public setDistinctId(distinctId: string): void {
+        this.endpoints.forEach(endpoint => {
+            endpoint.setDistinctId(distinctId);
+        });
     }
 
     public logEvent(event: IEvent): void {

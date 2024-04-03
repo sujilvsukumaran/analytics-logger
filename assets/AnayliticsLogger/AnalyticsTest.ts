@@ -1,13 +1,17 @@
-import { Component, _decorator } from "cc";
+import { Component, EditBox, _decorator } from "cc";
 import { AnalyticsLogger } from "./src/core/AnalyticsLogger";
 import { Endpoint } from "./src/core/Endpoint";
 import { EventCache } from "./src/core/EventCache";
 import { IEvent } from "./src/interfaces/IEvent";
 
-const { ccclass } = _decorator;
+const { ccclass, property } = _decorator;
 
 @ccclass('AnalyticsTest')
 export class AnalyticsTest extends Component {
+
+    @property(EditBox)
+    distinctIdInput: EditBox | null = null;
+
     private logger: AnalyticsLogger;
 
     start(): void {
@@ -74,5 +78,16 @@ export class AnalyticsTest extends Component {
             payload: { buttonId: 'end' },
         };
         this.logger.logEvent(event);
+    }
+
+    public changeDistinctId () : void {
+        if (this.distinctIdInput && this.distinctIdInput.string) {
+            this.logger.setDistinctId(this.distinctIdInput.string);
+            console.log('distinctId updated ' + this.distinctIdInput.string);
+        }
+    }
+
+    public logout () : void {
+        AnalyticsLogger.resetInstance()
     }
 }
