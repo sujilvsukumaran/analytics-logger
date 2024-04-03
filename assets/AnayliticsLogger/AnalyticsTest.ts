@@ -27,17 +27,50 @@ export class AnalyticsTest extends Component {
         this.logger.stop();
     }
 
-    public sendGamePlayStartEvent(): void {
+    public sendGamePlayStartBatchEvent(): void {
         const event: IEvent = {
-            type: 'gameplay-start',
+            type: 'gameplay-start-batch-event',
             payload: { buttonId: 'play' },
+        };
+        this.logger.logBatchEvent(event);
+    }
+
+    public sendGamePlayScoreBatchEvent(): void {
+        const event: IEvent = {
+            type: 'gameplay-score-batch-event',
+            payload: { buttonId: 'score' },
+        };
+        this.logger.logBatchEvent(event);
+    }
+
+    public sendGamePlayEndBatchEvent(): void {
+        const event: IEvent = {
+            type: 'gameplay-end-batch-event',
+            payload: { buttonId: 'end' },
+        };
+        this.logger.logBatchEvent(event);
+    }
+
+
+    public sendGamePlayStartSingleEvent(): void {
+        const event: IEvent = {
+            type: 'gameplay-start-single-event',
+            payload: { buttonId: 'start' },
         };
         this.logger.logEvent(event);
     }
 
-    public sendGamePlayEndEvent(): void {
+    public sendGamePlayScoreSingleEvent(): void {
         const event: IEvent = {
-            type: 'gameplay-end',
+            type: 'gameplay-score-single-event',
+            payload: { buttonId: 'score' },
+        };
+        this.logger.logEvent(event);
+    }
+
+    public sendGamePlayEndSingleEvent(): void {
+        const event: IEvent = {
+            type: 'gameplay-end-single-event',
             payload: { buttonId: 'end' },
         };
         this.logger.logEvent(event);

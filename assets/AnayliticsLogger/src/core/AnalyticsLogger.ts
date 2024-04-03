@@ -41,6 +41,16 @@ export class AnalyticsLogger {
     }
 
     public logEvent(event: IEvent): void {
+        this.endpoints.forEach(async endpoint => {
+            try {
+                await endpoint.sendEvent(event);
+            } catch (error) {
+                console.error('Failed to send batch of events:', error);
+            }
+        });
+    }
+
+    public logBatchEvent(event: IEvent): void {
         this.eventCache.addEvent(event);
         if (this.eventCache.getEvents().length >= this.maxCacheSize) {
             this.sendCachedEvents();
@@ -53,7 +63,7 @@ export class AnalyticsLogger {
         if (events.length > 0) {
             this.endpoints.forEach(async endpoint => {
                 try {
-                    await endpoint.sendEvent(events);
+                    await endpoint.sendEvents(events);
                 } catch (error) {
                     console.error('Failed to send batch of events:', error);
                 }

@@ -11,20 +11,39 @@ export class Endpoint {
         }
     }
 
-    async sendEvent(events: IEvent[]): Promise<void> {
-        const requestBody = JSON.stringify(this.config.createBody(events));
+    async sendEvent(events: IEvent): Promise<void> {
+        const requestBody = JSON.stringify(this.config.createSingleEventBody(events));
 
         console.log('Sending batch of events with headers:', this.config.headers);
         console.log('Sending batch of events with body:', requestBody);
 
-        const response = await fetch(this.config.url, {
+        const response = await fetch(this.config.single_event_end_point, {
             method: 'POST',
             headers: this.config.headers,
             body: requestBody
         });
 
         if (!response.ok) {
-            throw new Error(`Failed to send batch of events to ${this.config.url}`);
+            throw new Error(`Failed to send single of event to ${this.config.single_event_end_point}`);
+        } else {
+            console.log('single event sent successfully');
+        }
+    }
+
+    async sendEvents(events: IEvent[]): Promise<void> {
+        const requestBody = JSON.stringify(this.config.createBatchEventBody(events));
+
+        console.log('Sending batch of events with headers:', this.config.headers);
+        console.log('Sending batch of events with body:', requestBody);
+
+        const response = await fetch(this.config.batch_event_end_point, {
+            method: 'POST',
+            headers: this.config.headers,
+            body: requestBody
+        });
+
+        if (!response.ok) {
+            throw new Error(`Failed to send batch of events to ${this.config.batch_event_end_point}`);
         } else {
             console.log('Batch of events sent successfully');
         }
