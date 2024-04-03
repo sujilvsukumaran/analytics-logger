@@ -1,8 +1,8 @@
 import { Component, EditBox, _decorator } from "cc";
 import { AnalyticsLogger } from "./src/core/AnalyticsLogger";
-import { Endpoint } from "./src/core/Endpoint";
 import { EventCache } from "./src/core/EventCache";
 import { IEvent } from "./src/interfaces/IEvent";
+import { PosthogEndPoint } from "./src/concrete/PosthogEndPoint";
 
 const { ccclass, property } = _decorator;
 
@@ -15,11 +15,11 @@ export class AnalyticsTest extends Component {
     private logger: AnalyticsLogger;
 
     start(): void {
-        const posthogEndpoint = new Endpoint('posthog');
+        const posthogEndpoint = new PosthogEndPoint();
        // const googleAnalyticsEndpoint = new Endpoint('google_analytics'); // Example for adding another service
         const endpoints = [posthogEndpoint];
         const cache = new EventCache();
-        const cacheInterval = 5000;
+        const cacheInterval = 10000;
         const maxCacheSize = 50;
 
         AnalyticsLogger.initialize(endpoints, cache, cacheInterval, maxCacheSize);

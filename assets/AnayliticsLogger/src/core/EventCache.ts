@@ -1,7 +1,5 @@
 import { IEvent } from "../interfaces/IEvent";
 import { IEventCache } from "../interfaces/IEventCache";
-
-
 export class EventCache implements IEventCache {
     private events: IEvent[] = [];
 
