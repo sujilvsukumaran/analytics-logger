@@ -50,10 +50,14 @@ export class AnalyticsLogger {
     private sendCachedEvents(): void {
         const events = this.eventCache.getEvents();
         this.eventCache.clear();
-        events.forEach(event => {
-            this.endpoints.forEach(endpoint => {
-                endpoint.sendEvent(event);
+        if (events.length > 0) {
+            this.endpoints.forEach(async endpoint => {
+                try {
+                    await endpoint.sendEvent(events);
+                } catch (error) {
+                    console.error('Failed to send batch of events:', error);
+                }
             });
-        });
+        }
     }
 }

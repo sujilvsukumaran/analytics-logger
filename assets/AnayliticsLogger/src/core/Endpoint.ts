@@ -3,6 +3,7 @@ import { analyticsConfig } from "./AnalyticsConfig";
 
 export class Endpoint {
     private config: any;
+
     constructor(service: 'posthog' | 'google_analytics') { // Add other services as needed
         this.config = analyticsConfig[service];
         if (!this.config) {
@@ -10,12 +11,11 @@ export class Endpoint {
         }
     }
 
-    async sendEvent(event: IEvent): Promise<void> {
+    async sendEvent(events: IEvent[]): Promise<void> {
+        const requestBody = JSON.stringify(this.config.createBody(events));
 
-        const requestBody = JSON.stringify(this.config.createBody(event));
-
-        console.log('Sending event with headers:', this.config.headers);
-        console.log('Sending event with body:', requestBody);
+        console.log('Sending batch of events with headers:', this.config.headers);
+        console.log('Sending batch of events with body:', requestBody);
 
         const response = await fetch(this.config.url, {
             method: 'POST',
@@ -24,9 +24,9 @@ export class Endpoint {
         });
 
         if (!response.ok) {
-            throw new Error(`Failed to send event to ${this.config.url}`);
+            throw new Error(`Failed to send batch of events to ${this.config.url}`);
         } else {
-            console.log('Event sent successfully');
+            console.log('Batch of events sent successfully');
         }
     }
 }
