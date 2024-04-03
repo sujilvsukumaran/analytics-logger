@@ -1,8 +1,8 @@
 import { Component, _decorator } from "cc";
-import { AnalyticsLogger } from "db://assets/AnayliticsLogger/src/core/AnalyticsLogger";
-import { Endpoint } from "db://assets/AnayliticsLogger/src/core/Endpoint";
-import { EventCache } from "db://assets/AnayliticsLogger/src/core/EventCache";
-import { IEvent } from "db://assets/AnayliticsLogger/src/interfaces/IEvent";
+import { AnalyticsLogger } from "./src/core/AnalyticsLogger";
+import { Endpoint } from "./src/core/Endpoint";
+import { EventCache } from "./src/core/EventCache";
+import { IEvent } from "./src/interfaces/IEvent";
 
 const { ccclass } = _decorator;
 

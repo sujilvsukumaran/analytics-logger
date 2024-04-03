@@ -1,5 +1,5 @@
-import {IEventCache} from "db://assets/AnayliticsLogger/src/interfaces/IEventCache";
-import {IEvent} from "db://assets/AnayliticsLogger/src/interfaces/IEvent";
+import { IEvent } from "../interfaces/IEvent";
+import { IEventCache } from "../interfaces/IEventCache";
 
 
 export class EventCache implements IEventCache {

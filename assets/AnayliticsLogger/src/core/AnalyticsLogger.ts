@@ -1,6 +1,6 @@
-import {IEvent} from "db://assets/AnayliticsLogger/src/interfaces/IEvent";
-import {Endpoint} from "db://assets/AnayliticsLogger/src/core/Endpoint";
-import {EventCache} from "db://assets/AnayliticsLogger/src/core/EventCache";
+import { IEvent } from "../interfaces/IEvent";
+import { Endpoint } from "./Endpoint";
+import { EventCache } from "./EventCache";
 
 export class AnalyticsLogger {
     private static instance: AnalyticsLogger;
